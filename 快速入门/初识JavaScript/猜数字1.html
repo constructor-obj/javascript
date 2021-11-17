@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <input type="text" />
+      <button>确定</button>
+    </div>
+    <script>
+      /*
+              思路
+                  声明一个变div量保存div元素
+                  声明一个变量randomNumber保存一个1-100的随机数
+                  声明一个变量sum保存比较的次数
+                  声明一个变量保存一个数组
+                  声明三个变量p1,p2,p3分别保存三个创建的p元素
+                  声明变量btn保存一个创建的button元素
+                  声明变量
+                      获取input框中的值保存在变量inputValue中
+                      每次比较都进行sum加1
+                      将历次所猜的数字保存在数组中
+                          如果sum大于10
+                              将iputt框置为空
+                              p1元素内容就显示出历次所猜想的数字并且创建在div中的input选框下
+                              p2元素内容显示出"!!!GAME OVER!!!"背景设置为红色(red)
+                              p3元素内容为并一个从新开始的按钮
+                              确定按钮设置为禁用
+                          否则如果randomNumber小于inputValue
+                              将iputt框置为空
+                              p1元素内容就显示出历次所猜想的数字
+                              p2元素内容显示出"猜错了"背景设置为黄色(yellow )
+                              p3元素内容并显示出"猜小了"
+                          否则如果inputValue大于randomNumber且
+                              将iputt框置为空
+                              p1元素内容就显示出历次所猜想的数字
+                              p2元素内容显示出"猜错了"背景设置为黄色(yellow )
+                              p3元素内容并显示出"猜大了"
+                          否则如果inputValue等于于randomNumber且
+                              将iputt框置为空
+                              p1元素内容就显示出历次所猜想的数字
+                              p2元素内容显示出"猜错了"背景设置为绿色(green)
+                              p3元素内容并显示出"猜对了"
+                              并添加一个从新开始的按钮
+                              确定按钮设置为禁用
+
+                      点击从新开始按钮input框与确认按钮下将所有的显示元素清空
+                            首先查询出div下有几个子元素
+                            如果子元素大于2个利用while循环将其删除
+                      并将sum置为0
+                      将确定按钮显示为可用(可以点击的状态)
+            */
+      let div = document.querySelector("div");
+      let randomNumber = Math.floor(Math.random() * 100) + 1;
+      let btnELm = document.querySelector("button");
+      let sum = 0;
+      let unmberArr = [];
+      let p1 = document.createElement("p");
+      let p2 = document.createElement("p");
+      let p3 = document.createElement("p");
+      let btn = document.createElement("button");
+      let put = document.querySelector("input");
+      function affirm() {
+        let inputValue = put.value;
+        sum = ++sum;
+        unmberArr.push(inputValue);
+        if (sum > 3) {
+          put.value = "";
+          p1.innerText = unmberArr.join(" ");
+          p2.innerText = "!!!GAME OVER!!!";
+          p2.style.backgroundColor = "red";
+          btn.innerText = "从新开始";
+          btn.setAttribute("id", "anew");
+          p3.innerHTML = "";
+          p3.appendChild(btn);
+          btnELm.disabled = true;
+          // div.appendChild(p1);
+          // div.appendChild(p2);
+          // div.appendChild(p3);
+        } else if (inputValue < randomNumber) {
+          put.value = "";
+          p1.innerText = unmberArr.join(" ");
+          p2.innerText = "猜错了";
+          p3.innerText = "刚才猜小了";
+          p2.style.backgroundColor = "yellow";
+          div.appendChild(p1);
+          div.appendChild(p2);
+          div.appendChild(p3);
+        } else if (inputValue > randomNumber) {
+          put.value = "";
+          p1.innerText = unmberArr.join(" ");
+          p2.innerText = "猜错了";
+          p3.innerText = "刚才猜大了";
+          p2.style.backgroundColor = "yellow";
+          div.appendChild(p1);
+          div.appendChild(p2);
+          div.appendChild(p3);
+        } else if ((inputValue = randomNumber)) {
+          put.value = "";
+          p1.innerText = unmberArr.join(" ");
+          p2.innerText = "猜对了";
+          p2.style.backgroundColor = "green";
+          btn.setAttribute("id", "anew");
+          btn.innerText = "从新开始";
+          p3.innerHTML = "";
+          p3.appendChild(btn);
+          btnELm.disabled = true;
+          div.appendChild(p1);
+          div.appendChild(p2);
+          div.appendChild(p3);
+        }
+      }
+
+      btnELm.onclick = function () {
+        affirm();
+      };
+      div.onclick = function (e) {
+        if (e.target.id == "anew") {
+          if (div.children.length > 2) {
+            console.log(div.children.length);
+            for (let i = 2; i <= div.children.length + 1; i++) {
+              div.removeChild(div.children[2]);
+            }
+          }
+          randomNumber = Math.floor(Math.random() * 100) + 1;
+          unmberArr.length = 0;
+          sum = 0;
+          btnELm.disabled = false;
+        }
+      };
+      // div = document.querySelector("div");
+      // if (div.children.length > 1) {
+      //   for (let i = 1; i <= div.children.length; i++) {
+      //     div.removeChild(div.children[i]);
+      //   }
+      // }
+      // console.log(div.children);
+      // let p2 = document.createElement("p");
+      // p2.innerText = "猜错了";
+      // div.appendChild(p2);
+      // div.appendChild(p2);
+      // div.appendChild(p2);
+      // div.appendChild(p2);
+    </script>
+  </body>
+</html>

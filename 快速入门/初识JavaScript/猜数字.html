@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" />
+    <button>确定</button>
+    <p class="record"></p>
+    <p class="result"></p>
+    <p class="expect"></p>
+
+    <script>
+      let body = document.querySelector("body");
+      let btn = document.querySelector("button");
+      let record = document.querySelector(".record");
+      let result = document.querySelector(".result");
+      let expect = document.querySelector(".expect");
+      let randomNumber = Math.floor(Math.random() * 100) + 1;
+      let reset = document.createElement("button");
+      let inputValue = document.querySelector("input").value;
+      let recordArr = [];
+      console.log(randomNumber);
+      let sum = 0;
+      function guessNumber() {
+        let inputValue = document.querySelector("input").value;
+        recordArr.push(inputValue);
+        console.log(recordArr);
+        sum = ++sum;
+        if (sum < randomNumber) {
+          if (randomNumber > inputValue) {
+            console.log("猜小了");
+            record.innerText = "您猜的数字是  " + recordArr.join(" ");
+            result.innerText = "你猜错了";
+            expect.innerText = "猜小了";
+            document.querySelector("input").value = "";
+            console.log(inputValue);
+          } else if (inputValue > randomNumber) {
+            record.innerText = "您猜的数字是  " + recordArr.join(" ");
+            result.innerText = "你猜错了";
+            expect.innerText = "猜大了";
+          } else if (inputValue == randomNumber) {
+            record.innerText = "您猜的数字是  " + recordArr.join(" ");
+            console.log("猜对了");
+            expect.innerText = "猜对了";
+            btn.disabled = true;
+            reset.innerText = "从新开始";
+            body.appendChild(reset);
+          }
+        } else {
+          console.log("游戏结束");
+          result.innerText = "游戏结束";
+          btn.disabled = true;
+          reset.innerText = "从新开始";
+          body.appendChild(reset);
+        }
+      }
+      //重置游戏
+      function setGame() {
+        document.querySelector("input").value = "";
+        btn.disabled = false;
+        record.innerText = "";
+        recordArr.length = 0;
+        expect.innerHTML = "";
+        result.innerHTML = "";
+        reset.remove();
+      }
+      //event
+      reset.onclick = function () {
+        setGame();
+      };
+      btn.onclick = function () {
+        guessNumber();
+      };
+
+      //逻辑混乱
+    </script>
+  </body>
+</html>
