@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <label for="search">Search by contact name: </label>
+    <input id="search" type="text" />
+    <button>Search</button>
+
+    <p></p>
+    <script>
+      const contacts = [
+        "Chris:2232322",
+        "Sarah:3453456",
+        "Bill:7654322",
+        "Mary:9998769",
+        "Dianne:9384975",
+      ];
+
+      /*需求
+        通过选框来找到相应的数字的值并显示相应的数字
+        如果没有相应对应的值就显示，Contact not found.
+        思路
+            首先获取想对象的三个页面元素分别保存在变量或者变量中
+                使用一个函数Search代码块来整体组织代码
+                    在该函数中使用for循环来遍历数组contats每一值
+                          在该函数中使用 如果当前元素的分隔号想分隔的name部分等于input元素中的值
+                              那么我们就将钙元素的值以冒号分隔显示为"某"+Contact not found+"某"
+                              并将其显示在页面中
+            为Search按钮添加一个点击事件并调用该函数
+      */
+      const para = document.querySelector("p");
+      const input = document.querySelector("input");
+      const btn = document.querySelector("button");
+      function Search() {
+        for (let i = 0; i < contacts.length; i++) {
+          let name = contacts[i].split(":", 1).join();
+          if (input.value == name) {
+            para.textContent =
+              contacts[i].split(":")[0] +
+              " Contact not found " +
+              contacts[i].split(":")[1];
+            break;
+          } else {
+            para.textContent = " Contact not found ";
+          }
+        }
+      }
+      btn.onclick = function () {
+        Search();
+      };
+    </script>
+  </body>
+</html>
